@@ -11,4 +11,7 @@ import com.test.util.Catalago;
 @RequestMapping(value = Catalago.URL_USER)
 public class UserController extends ControllerDefault<User, UserService> {
 
+	public UserController() {
+		super("user");
+	}
 }

@@ -38,6 +38,8 @@ public class Catalago {
 	public static final String URL_DENIED = "/public/denied";
 
 	public static final String URL_ID = "/{id}";
+	public static final String URL_NEW = "/new";
+	public static final String URL_EDIT = "/edit";
 
 	public static final String URL_USER = "/user";
 

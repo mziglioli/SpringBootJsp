@@ -2,6 +2,9 @@ package com.test.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -97,10 +100,14 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 		return authorities;
 	}
 
-	// public UserDetails getUserDetails() {
-	// return new org.springframework.security.core.userdetails.User(username, password, isEnabled(),
-	// isAccountNonExpired(),
-	// credentialsNonExpired, accountNonLocked, authorities);
-	// }
+	public List<String> getAuth() {
+		try (Stream<String> auths = authorities.stream().map(UserAuthority::getAuthority)) {
+
+			return auths.collect(Collectors.toList());
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 }

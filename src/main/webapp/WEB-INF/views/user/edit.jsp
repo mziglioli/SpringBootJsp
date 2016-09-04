@@ -12,21 +12,14 @@
 <link href="<c:url value="/static/css/sticky-footer-navbar.css"/>"
 	rel="stylesheet">
 
-<title>Home page</title>
+<title>Edit User page</title>
 </head>
 <body>
 
 	Dear
-	<strong>${user}</strong>, this is home page
+	<strong>${user}</strong>, this is edit page
 	<a href="<c:url value="/logout" />">Logout</a>
 
-	<div>
-		<button type="button" class="btn btn-danger">Go to Users</button>
-		<a href="<c:url value='/user/' />">go to foo</a>
-	</div>
-	<script src="<c:url value="/static/lib/jquery-1.11.1.min.js"/>"></script>
-	<script
-		src="<c:url value="/static/js/bootstrap.min.js"/>"></script>
-	<script src="<c:url value="/static/js/bootstrap-filestyle.min.js"/>"></script>
+
 </body>
 </html>
