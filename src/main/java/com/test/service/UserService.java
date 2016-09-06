@@ -1,8 +1,5 @@
 package com.test.service;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -25,15 +22,4 @@ public class UserService extends ServiceDefault<User, UserRepository> {
 		User user = findByUsername(username);
 		return user;
 	}
-
-	public List<User> getFriends(List<Long> ids) {
-		List<User> users = new ArrayList<User>();
-		for (Long id : ids) {
-			User u = getRepository().findOne(id);
-			if (u != null)
-				users.add(u);
-		}
-		return users;
-	}
-
 }

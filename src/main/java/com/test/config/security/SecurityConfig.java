@@ -26,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/static/**"); // #3
+		web.ignoring().antMatchers("/static/**");
 	}
 
 	@Override
@@ -42,7 +42,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.usernameParameter(Catalago.LOGIN_PARAM_USERNAME)
 				.passwordParameter(Catalago.LOGIN_PARAM_PASSWORD)
 				.and().exceptionHandling().accessDeniedPage(Catalago.URL_DENIED)
-		.and()
 		;
 		//@formatter:on
 	}
