@@ -1,17 +1,29 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html">
-<link	href="<c:url value="/static/css/bootstrap.min.css"/>" rel="stylesheet">
-<link href="<c:url value="/static/css/sticky-footer-navbar.css"/>" rel="stylesheet">
-<title>Edit User page</title>
-</head>
-<body>
-	<c:import url="../fragments/header.jsp"></c:import>
-	<spring:message code="label.create.user" />
-	<c:import url="../fragments/footer.jsp"></c:import>
-</body>
-</html>
+<div class="container">
+	<h2><spring:message code="label.new.user" /></h2>
+	<a style="color: red;" href="<c:url value='/user/' />"><spring:message code="label.cancel" /></a>
+	<form action="<c:url value='/public/login' />" method="post" class="form-horizontal">
+	    <div class="grid">
+	        <div class="row cells12">
+	        	<div class="input-control text flex-dir-row full-size">
+					<span class="mif-user prepend-icon"></span> 
+					<input type="text" id="name" class="form-control" name="name" placeholder="<spring:message code="label.name" />" required autofocus size="200" maxlength="200">
+				</div>
+			 </div>
+	    </div>
+     	<div class="grid">
+	        <div class="row cells12">
+				<div class="input-control text full-size">
+					<span class="mif-user prepend-icon"></span> 
+					<input type="email" id="username" class="form-control" name="username" placeholder="<spring:message code="label.username" />" required>
+				</div>
+		</div>
+		</div>
+		<div class="form-actions">
+			<button class="button primary" type="submit"><spring:message code="label.create" /></button>
+			<button class="button link fg-grayLight" type="reset"><spring:message code="label.cancel" /></button>
+		</div>
+	</form>
+</div>
