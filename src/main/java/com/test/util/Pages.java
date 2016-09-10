@@ -2,12 +2,14 @@ package com.test.util;
 
 public class Pages {
 
-	private final static String PUBLIC = "public/";
-	public final static String DENIED = PUBLIC + "denied";
-	public final static String ERROR = PUBLIC + "error";
-	public final static String INDEX = PUBLIC + "index";
-	public final static String LOGIN = PUBLIC + "login";
+	public final static String DENIED = "denied";
+	public final static String ERROR = "error";
+	public final static String INDEX = "index";
+	public final static String LOGIN = "login";
 
-	private final static String USER = "user/";
-	public final static String HOME = USER + "home";
+	public final static String HOME = "home";
+	public final static String ADD = "_add";
+	public final static String EDIT = "_edit";
+	public final static String LIST = "_list";
+
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+	<!-- Base Definition -->
+	<definition name="public-definition" template="/WEB-INF/views/tiles/layout/public_layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/fragments/header.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/fragments/footer.jsp" />
+	</definition>
+	<definition name="user-definition" template="/WEB-INF/views/tiles/layout/user_layout.jsp">
+		<put-attribute name="header" value="/WEB-INF/views/tiles/fragments/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/tiles/fragments/menu.jsp" />
+		<put-attribute name="body" value="" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles/fragments/footer.jsp" />
+	</definition>
+	
+    <!-- BEGIN PUBLIC PAGES -->  
+    <definition name="index" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/index.jsp" />
+    </definition>
+    <definition name="login" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/login.jsp" />
+    </definition>
+    <definition name="denied" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/denied.jsp" />
+    </definition>
+    <definition name="error" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/error.jsp" />
+    </definition>
+    <!-- END PUBLIC PAGES -->
+    
+    <!-- BEGIN USER PAGES -->
+    <definition name="home" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/user/home.jsp" />
+    </definition>  
+    <definition name="user_add" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/user/add.jsp" />
+    </definition>
+    <definition name="user_edit" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/user/edit.jsp" />
+    </definition>
+    <definition name="user_list" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/user/list.jsp" />
+    </definition>
+    
+    <!-- END USER PAGES -->
+    
+    
+</tiles-definitions>
