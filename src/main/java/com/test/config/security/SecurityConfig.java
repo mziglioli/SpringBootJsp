@@ -21,7 +21,7 @@ import com.test.util.Catalago;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan(basePackageClasses = { ServletConfiguration.class, ControllerDefault.class, ServicePackage.class })
+@ComponentScan(basePackageClasses = { ControllerDefault.class, ServicePackage.class, ServletConfiguration.class })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and().formLogin().permitAll()
 			.loginPage(Catalago.URL_LOGIN)
-				.defaultSuccessUrl(Catalago.URL_HOME)
+				.defaultSuccessUrl(Catalago.URL_USER_HOME)
 				.usernameParameter(Catalago.LOGIN_PARAM_USERNAME)
 				.passwordParameter(Catalago.LOGIN_PARAM_PASSWORD)
 				.and().exceptionHandling().accessDeniedPage(Catalago.URL_DENIED)

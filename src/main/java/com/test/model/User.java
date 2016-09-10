@@ -13,6 +13,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.validation.constraints.NotNull;
@@ -67,6 +69,10 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Collection<UserAuthority> authorities;
 
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "menu")
+	private Menu menu;
+
 	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
@@ -100,9 +106,12 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 		return authorities;
 	}
 
+	public Collection<UserAuthority> getUserAuth() {
+		return authorities;
+	}
+
 	public List<String> getAuth() {
 		try (Stream<String> auths = authorities.stream().map(UserAuthority::getAuthority)) {
-
 			return auths.collect(Collectors.toList());
 		} catch (Exception e) {
 			e.printStackTrace();

@@ -18,8 +18,6 @@ public class UserService extends ServiceDefault<User, UserRepository> {
 	}
 
 	public User getUserFromUserLogado() {
-		String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		User user = findByUsername(username);
-		return user;
+		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 }

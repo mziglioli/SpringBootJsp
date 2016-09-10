@@ -2,20 +2,20 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
-<html lang="en">
-	<head>
-    	<meta charset="utf-8">
-    	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-    	<meta name="viewport" content="width=device-width, initial-scale=1">
-	    <meta name="description" content="">
-    	<meta name="author" content="">
-    	<link rel="icon" href="../../favicon.ico">
-    	<title>Public Layout</title>
-    	<!-- Bootstrap core CSS -->
-    	<link href="<c:url value='/static/css/bootstrap.css' />" rel="stylesheet"></link>
-  	</head>
-  	<body>
+<html>
+<head>
+ 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><spring:message code="label.project.name" /></title>
+	<link href="<c:url value='/static/metro/css/metro.css' />" rel="stylesheet">
+	<link href="<c:url value='/static/metro/css/metro-schemes.css' />" rel="stylesheet">
+	<link href="<c:url value='/static/metro/css/metro-icons.css' />" rel="stylesheet">
+	<link href="<c:url value='/static/metro/css/metro-responsive.css' />" rel="stylesheet">
+	<script src="<c:url value='/static/metro/js/jquery-2.1.3.min.js' />"></script>
+	<script src="<c:url value='/static/metro/js/metro.js' />"></script>
+</head>
+	<body>
 		<tiles:insertAttribute name="header" />
 		<tiles:insertAttribute name="body" />
 		<tiles:insertAttribute name="footer" />

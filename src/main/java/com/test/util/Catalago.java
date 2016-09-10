@@ -34,7 +34,6 @@ public class Catalago {
 	public static final String URL_PUBLIC_BASE = "/public/";
 	public static final String URL_PUBLIC_ALL_BASE = "/public/**";
 	public static final String URL_LOGIN = "/public/login";
-	public static final String URL_HOME = "/public/home";
 	public static final String URL_DENIED = "/public/denied";
 
 	public static final String URL_ID = "/{id}";
@@ -42,5 +41,9 @@ public class Catalago {
 	public static final String URL_EDIT = "/edit";
 
 	public static final String URL_USER = "/user";
+
+	public static final String URL_HOME = "/home";
+	public static final String URL_USER_HOME = "/user/home";
+	public static final String URL_PROFILE = "/profile";
 
 }

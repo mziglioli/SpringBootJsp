@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.test.model.Menu;
 import com.test.model.User;
 import com.test.model.UserAuthority;
 import com.test.model.enuns.Authorities;
 import com.test.model.enuns.Status;
+import com.test.service.MenuService;
 import com.test.service.UserService;
 import com.test.util.Pages;
 
@@ -30,6 +32,8 @@ public class PublicController {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private MenuService menuService;
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView index() {
@@ -75,6 +79,13 @@ public class PublicController {
 	// remove, just to test
 	@RequestMapping(value = "/start", method = RequestMethod.GET)
 	public void auth() {
+
+		Collection<UserAuthority> userAuthorities = new HashSet<>();
+		userAuthorities.add(new UserAuthority(Authorities.USER.getRole()));
+
+		createMenuLink("label.menu.home", "/user/home", "mif-home icon", userAuthorities);
+		createMenuLink("label.menu.users", "/user/", "mif-users icon", userAuthorities);
+
 		User user = new User();
 		user.setNome("test");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -85,5 +96,14 @@ public class PublicController {
 		authorities.add(new UserAuthority(Authorities.USER.getRole()));
 		user.setAuthorities(authorities);
 		userService.save(user);
+	}
+
+	private void createMenuLink(String nome, String link, String icon, Collection<UserAuthority> auths) {
+		Menu menu = new Menu();
+		menu.setIcon(icon);
+		menu.setLink(link);
+		menu.setName(nome);
+		menu.setAuthorities(auths);
+		menuService.save(menu);
 	}
 }
