@@ -1,10 +1,10 @@
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<div class="container">
+<div class="cell auto-size padding20 bg-white" id="cell-content">
 	<h2><spring:message code="label.new.user" /></h2>
 	<a style="color: red;" href="<c:url value='/user/' />"><spring:message code="label.cancel" /></a>
-	<form action="<c:url value='/public/login' />" method="post" class="form-horizontal">
+	<form action="<c:url value='/user' />" method="put" class="form-horizontal">
 	    <div class="grid">
 	        <div class="row cells12">
 	        	<div class="input-control text flex-dir-row full-size">

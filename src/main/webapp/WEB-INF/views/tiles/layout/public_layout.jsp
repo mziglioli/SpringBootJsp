@@ -17,7 +17,13 @@
 </head>
 	<body>
 		<tiles:insertAttribute name="header" />
-		<tiles:insertAttribute name="body" />
+		<div class="page-content">
+			<div class="grid responsive flex-grid">
+			    <div class="row cells4">
+		    	    <tiles:insertAttribute name="body" />
+				</div>
+			</div>
+		</div>	
 		<tiles:insertAttribute name="footer" />
 	</body>
 </html>

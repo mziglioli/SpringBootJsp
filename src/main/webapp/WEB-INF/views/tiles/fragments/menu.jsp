@@ -2,11 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
-<div class="container page-content">
-	<div class="grid responsive">
-	    <div class="row cells4">
-    	    <div class="cell">
-        	    <h5></h5>
+    	   <div class="cell size-x200" id="cell-sidebar" style="background-color: #71b1d1; height: 100%">
+                    <h5></h5>
 	            <ul class="sidebar no-responsive-future" id="sidebar-2">
 	            	<!-- FIXME -->
 	            	<sec:authorize access="isAuthenticated()">
@@ -20,8 +17,3 @@
 					</sec:authorize>
 				</ul>
 	        </div>
-		</div>
-	</div>
-</div>
-
-

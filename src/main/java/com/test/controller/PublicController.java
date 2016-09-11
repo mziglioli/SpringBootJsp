@@ -13,8 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.model.Menu;
@@ -35,28 +35,28 @@ public class PublicController {
 	@Autowired
 	private MenuService menuService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@GetMapping(value = "/")
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.INDEX);
 		return model;
 	}
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@GetMapping(value = "/login")
 	public ModelAndView login() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.LOGIN);
 		return model;
 	}
 
-	@RequestMapping(value = "/home", method = RequestMethod.GET)
+	@GetMapping(value = "/home")
 	public ModelAndView home() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.HOME);
 		return model;
 	}
 
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@GetMapping(value = "/logout")
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
@@ -65,19 +65,19 @@ public class PublicController {
 		return "redirect:/login?logout";
 	}
 
-	@RequestMapping(value = "/denied", method = RequestMethod.GET)
+	@GetMapping(value = "/denied")
 	public String denied(Model model) {
 		return Pages.DENIED;
 	}
 
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	@GetMapping(value = "/error")
 	public String error(Model model) {
 		return Pages.DENIED;
 	}
 
 	// FIXME
 	// remove, just to test
-	@RequestMapping(value = "/start", method = RequestMethod.GET)
+	@GetMapping(value = "/start")
 	public void auth() {
 
 		Collection<UserAuthority> userAuthorities = new HashSet<>();
@@ -87,7 +87,7 @@ public class PublicController {
 		createMenuLink("label.menu.users", "/user/", "mif-users icon", userAuthorities);
 
 		User user = new User();
-		user.setNome("test");
+		user.setName("test");
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		user.setPassword(encoder.encode("test"));
 		user.setStatus(Status.ATIVO.getDescricao());

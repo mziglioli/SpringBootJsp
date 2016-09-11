@@ -1,7 +1,7 @@
 package com.test.controller;
 
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -18,13 +18,13 @@ public class UserController extends ControllerDefault<User, UserService> {
 		super("user");
 	}
 
-	@RequestMapping(value = Catalago.URL_HOME, method = RequestMethod.GET)
+	@GetMapping(value = Catalago.URL_HOME)
 	public ModelAndView home(ModelAndView model) {
 		model.setViewName(Pages.HOME);
 		return model;
 	}
 
-	@RequestMapping(value = Catalago.URL_PROFILE, method = RequestMethod.GET)
+	@GetMapping(value = Catalago.URL_PROFILE)
 	public ModelAndView profile(ModelAndView model) {
 		model.setViewName(Pages.PROFILE);
 		model.addObject("user", service.getUserFromUserLogado());

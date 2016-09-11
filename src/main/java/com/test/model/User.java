@@ -38,7 +38,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false, of = { "id" })
-@ToString(callSuper = false, of = { "id", "nome" })
+@ToString(callSuper = false, of = { "id", "name" })
 @Entity
 @Table(name = "user", catalog = Catalago.DB_NAME)
 public class User implements EntityJpaClass, Serializable, UserDetails {
@@ -52,7 +52,7 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 
 	@Column
 	@NotNull
-	private String nome;
+	private String name;
 
 	@Column
 	@NotNull
