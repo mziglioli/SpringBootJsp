@@ -24,6 +24,7 @@ import com.test.model.enuns.Authorities;
 import com.test.model.enuns.Status;
 import com.test.service.MenuService;
 import com.test.service.UserService;
+import com.test.util.Catalago;
 import com.test.util.Pages;
 
 @Controller
@@ -35,43 +36,41 @@ public class PublicController {
 	@Autowired
 	private MenuService menuService;
 
-	@GetMapping(value = "/")
+	@GetMapping(value = Catalago.URL_BASE)
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.INDEX);
 		return model;
 	}
 
-	@GetMapping(value = "/login")
+	@GetMapping(value = Catalago.URL_LOGIN)
 	public ModelAndView login() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.LOGIN);
 		return model;
 	}
 
-	@GetMapping(value = "/home")
-	public ModelAndView home() {
-		ModelAndView model = new ModelAndView();
-		model.setViewName(Pages.HOME);
-		return model;
-	}
-
-	@GetMapping(value = "/logout")
+	@GetMapping(value = Catalago.URL_LOGOUT)
 	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
-		return "redirect:/login?logout";
+		return "redirect:" + Catalago.URL_PUBLIC_BASE;
 	}
 
-	@GetMapping(value = "/denied")
+	@GetMapping(value = Catalago.URL_DENIED)
 	public String denied(Model model) {
 		return Pages.DENIED;
 	}
 
-	@GetMapping(value = "/error")
+	@GetMapping(value = Catalago.URL_ERROR)
 	public String error(Model model) {
+		return Pages.ERROR;
+	}
+
+	@GetMapping(value = Catalago.URL_NOT_FOUND)
+	public String notFound(Model model) {
 		return Pages.DENIED;
 	}
 

@@ -37,11 +37,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers(Catalago.URL_PUBLIC_ALL_BASE).permitAll()
 				.anyRequest().authenticated()
 				.and().formLogin().permitAll()
-			.loginPage(Catalago.URL_LOGIN)
+			.loginPage(Catalago.URL_PUBLIC_LOGIN)
 				.defaultSuccessUrl(Catalago.URL_USER_HOME)
 				.usernameParameter(Catalago.LOGIN_PARAM_USERNAME)
 				.passwordParameter(Catalago.LOGIN_PARAM_PASSWORD)
-				.and().exceptionHandling().accessDeniedPage(Catalago.URL_DENIED)
+				.and().exceptionHandling().accessDeniedPage(Catalago.URL_PUBLIC_DENIED)
 		;
 		//@formatter:on
 	}

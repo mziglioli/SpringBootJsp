@@ -2,9 +2,13 @@ package com.test.config.servlet;
 
 import java.util.Locale;
 
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.servlet.ErrorPage;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -18,6 +22,8 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.view.tiles3.TilesConfigurer;
 import org.springframework.web.servlet.view.tiles3.TilesView;
 import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
+
+import com.test.util.Catalago;
 
 @Configuration
 @EnableWebMvc
@@ -85,5 +91,17 @@ public class ServletConfiguration extends WebMvcConfigurerAdapter {
 		messageSource.setCacheSeconds(3600);
 		messageSource.setDefaultEncoding("UTF-8");
 		return messageSource;
+	}
+
+	@Bean
+	public EmbeddedServletContainerCustomizer containerCustomizer() {
+		return new EmbeddedServletContainerCustomizer() {
+			@Override
+			public void customize(ConfigurableEmbeddedServletContainer container) {
+				container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, Catalago.URL_NOT_FOUND));
+				container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, Catalago.URL_DENIED));
+				container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, Catalago.URL_ERROR));
+			}
+		};
 	}
 }

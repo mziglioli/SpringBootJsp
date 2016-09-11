@@ -15,9 +15,9 @@
 	<script src="<c:url value='/static/metro/js/jquery-2.1.3.min.js' />"></script>
 	<script src="<c:url value='/static/metro/js/metro.js' />"></script>
 </head>
-	<body>
+	<body style="height: 100%; padding-bottom:120px;">
 	<tiles:insertAttribute name="header" />
-	<div class="page-content">
+	<div class="page-content" style="height: 100%;">
 		<div class="grid responsive flex-grid">
 		    <div class="row cells4">
 	    	    <tiles:insertAttribute name="menu" />
