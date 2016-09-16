@@ -12,7 +12,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -79,7 +78,7 @@ public class PublicController {
 	public ModelAndView notFound() {
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.DENIED);
-		return model;	
+		return model;
 	}
 
 	// FIXME
@@ -91,7 +90,7 @@ public class PublicController {
 		userAuthorities.add(new UserAuthority(Authorities.USER.getRole()));
 
 		createMenuLink("label.menu.home", "/user/home", "mif-home icon", userAuthorities);
-		createMenuLink("label.menu.users", "/user/", "mif-users icon", userAuthorities);
+		createMenuLink("label.menu.products", "/product/", "mif-users icon", userAuthorities);
 
 		User user = new User();
 		user.setName("test");
@@ -103,7 +102,7 @@ public class PublicController {
 		authorities.add(new UserAuthority(Authorities.USER.getRole()));
 		user.setAuthorities(authorities);
 		userService.save(user);
-		
+
 		ModelAndView model = new ModelAndView();
 		model.setViewName(Pages.INDEX);
 		return model;

@@ -48,6 +48,7 @@ public class Catalago {
 	public static final String URL_DELETE = "/delete/{id}";
 
 	public static final String URL_USER = "/user";
+	public static final String URL_PRODUCT = "/product";
 
 	public static final String URL_HOME = "/home";
 	public static final String URL_USER_HOME = "/user/home";

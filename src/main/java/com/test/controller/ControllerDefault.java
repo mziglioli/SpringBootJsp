@@ -34,11 +34,11 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 	public final ModelAndView save(ModelAndView model, @Valid E entity, BindingResult bindingResult) {
 		if (bindingResult.hasErrors()) {
 			// TODO
+			return model;
 		} else {
 			service.save(model, entity);
+			return new ModelAndView("redirect:/" + entityURL + "/");
 		}
-		model.setViewName(entityURL + Pages.LIST);
-		return model;
 	}
 
 	@PostMapping(value = Catalago.URL_UPDATE)
@@ -48,15 +48,13 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 		} else {
 			service.update(model, entity);
 		}
-		model.setViewName(entityURL + Pages.LIST);
-		return model;
+		return new ModelAndView("redirect:/" + entityURL + "/");
 	}
 
 	@DeleteMapping(value = Catalago.URL_DELETE)
 	public ModelAndView delete(ModelAndView model, @PathVariable Long id) {
 		service.delete(model, id);
-		model.setViewName(entityURL + Pages.LIST);
-		return model;
+		return new ModelAndView("redirect:/" + entityURL + "/");
 	}
 
 	@GetMapping(value = Catalago.URL_EDIT)

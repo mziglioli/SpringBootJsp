@@ -36,17 +36,18 @@
     <definition name="profile" extends="user-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/user/profile.jsp" />
     </definition>  
-    <definition name="user_add" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/user/add.jsp" />
+    <!-- END USER PAGES -->
+    
+    <definition name="product_add" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/product/add.jsp" />
     </definition>
-    <definition name="user_edit" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/user/edit.jsp" />
+    <definition name="product_edit" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/product/edit.jsp" />
     </definition>
-    <definition name="user_list" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/user/list.jsp" />
+    <definition name="product_list" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/product/list.jsp" />
     </definition>
     
-    <!-- END USER PAGES -->
     
     
 </tiles-definitions>
