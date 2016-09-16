@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
+import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -40,7 +41,8 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = false, of = { "id" })
 @ToString(callSuper = false, of = { "id", "name" })
 @Entity
-@Table(name = "user", catalog = Catalago.DB_NAME)
+@Table(name = "user", catalog = Catalago.DB_NAME, uniqueConstraints = {
+		@UniqueConstraint(columnNames = { "username" }) })
 public class User implements EntityJpaClass, Serializable, UserDetails {
 
 	private static final long serialVersionUID = 442738873666572571L;

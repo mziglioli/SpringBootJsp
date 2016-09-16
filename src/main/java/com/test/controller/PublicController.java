@@ -51,33 +51,41 @@ public class PublicController {
 	}
 
 	@GetMapping(value = Catalago.URL_LOGOUT)
-	public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (auth != null) {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
-		return "redirect:" + Catalago.URL_PUBLIC_BASE;
+		ModelAndView model = new ModelAndView();
+		model.setViewName(Pages.INDEX);
+		return model;
 	}
 
 	@GetMapping(value = Catalago.URL_DENIED)
-	public String denied(Model model) {
-		return Pages.DENIED;
+	public ModelAndView denied() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName(Pages.DENIED);
+		return model;
 	}
 
 	@GetMapping(value = Catalago.URL_ERROR)
-	public String error(Model model) {
-		return Pages.ERROR;
+	public ModelAndView error() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName(Pages.ERROR);
+		return model;
 	}
 
 	@GetMapping(value = Catalago.URL_NOT_FOUND)
-	public String notFound(Model model) {
-		return Pages.DENIED;
+	public ModelAndView notFound() {
+		ModelAndView model = new ModelAndView();
+		model.setViewName(Pages.DENIED);
+		return model;	
 	}
 
 	// FIXME
 	// remove, just to test
 	@GetMapping(value = "/start")
-	public void auth() {
+	public ModelAndView auth() {
 
 		Collection<UserAuthority> userAuthorities = new HashSet<>();
 		userAuthorities.add(new UserAuthority(Authorities.USER.getRole()));
@@ -95,6 +103,10 @@ public class PublicController {
 		authorities.add(new UserAuthority(Authorities.USER.getRole()));
 		user.setAuthorities(authorities);
 		userService.save(user);
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName(Pages.INDEX);
+		return model;
 	}
 
 	private void createMenuLink(String nome, String link, String icon, Collection<UserAuthority> auths) {
