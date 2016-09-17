@@ -12,14 +12,19 @@
 	<link href="<c:url value='/static/metro/css/metro-schemes.css' />" rel="stylesheet">
 	<link href="<c:url value='/static/metro/css/metro-icons.css' />" rel="stylesheet">
 	<link href="<c:url value='/static/metro/css/metro-responsive.css' />" rel="stylesheet">
+	<link href="<c:url value='/static/metro/css/docs.css' />" rel="stylesheet">
+	
 	<script src="<c:url value='/static/metro/js/jquery-2.1.3.min.js' />"></script>
 	<script src="<c:url value='/static/metro/js/metro.js' />"></script>
+    <script src="<c:url value='/static/metro/js/docs.js' />"></script>
+    <script src="<c:url value='/static/metro/js/prettify/run_prettify.js' />"></script>
+    <script src="<c:url value='/static/metro/js/ga.js' />"></script>
 </head>
 	<body style="height: 100%; padding-bottom:120px;">
 	<tiles:insertAttribute name="header" />
 	<div class="page-content" style="height: 100%;">
 		<div class="grid responsive flex-grid">
-		    <div class="row cells4">
+		    <div class="row">
 	    	    <tiles:insertAttribute name="menu" />
 	    	    <tiles:insertAttribute name="body" />
 			</div>

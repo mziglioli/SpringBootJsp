@@ -1,9 +1,13 @@
 package com.test.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,23 +36,48 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 
 	@PostMapping(value = Catalago.URL_SAVE)
 	public final ModelAndView save(ModelAndView model, @Valid E entity, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			// TODO
-			return model;
-		} else {
+		if (validate(model, bindingResult, entity)) {
 			service.save(model, entity);
 			return new ModelAndView("redirect:/" + entityURL + "/");
+		} else {
+			model.setViewName(entityURL + Pages.ADD);
+			model.addObject("saveURL", "/" + entityURL + Catalago.URL_SAVE);
+			return model;
 		}
 	}
 
 	@PostMapping(value = Catalago.URL_UPDATE)
 	public ModelAndView update(ModelAndView model, @Valid E entity, BindingResult bindingResult) {
-		if (bindingResult.hasErrors()) {
-			// TODO
-		} else {
+		if (validate(model, bindingResult, entity)) {
 			service.update(model, entity);
+			return new ModelAndView("redirect:/" + entityURL + "/");
+		} else {
+			model.setViewName(entityURL + Pages.EDIT);
+			model.addObject("saveURL", "/" + entityURL + Catalago.URL_UPDATE);
+			return model;
 		}
-		return new ModelAndView("redirect:/" + entityURL + "/");
+	}
+
+	private boolean validate(ModelAndView model, BindingResult bindingResult, E entity) {
+		myValidate(model, bindingResult, entity);
+		if (bindingResult.hasErrors()) {
+			addError(model, bindingResult);
+			model.addObject("entity", entity);
+			model.addObject("entityName", entityURL);
+			return false;
+		}
+		return true;
+	}
+
+	protected void myValidate(ModelAndView model, BindingResult bindingResult, E entity) {
+
+	}
+
+	private void addError(ModelAndView model, BindingResult bindingResult) {
+		List<ObjectError> errors = bindingResult.getAllErrors();
+		if (errors != null && !errors.isEmpty()) {
+			model.addObject("errors", errors.stream().collect(Collectors.toList()));
+		}
 	}
 
 	@DeleteMapping(value = Catalago.URL_DELETE)

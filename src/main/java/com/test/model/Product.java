@@ -12,6 +12,8 @@ import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.test.util.Catalago;
 
 import lombok.AllArgsConstructor;
@@ -41,10 +43,12 @@ public class Product implements EntityJpaClass, Serializable {
 
 	@Column
 	@NotNull(message = "error.empty.name")
+	@NotEmpty(message = "error.empty.name")
 	private String name;
 
 	@Column
 	@NotNull(message = "error.empty.category")
+	@NotEmpty(message = "error.empty.category")
 	private String category;
 
 	@Column
