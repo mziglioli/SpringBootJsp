@@ -38,6 +38,7 @@
     </definition>  
     <!-- END USER PAGES -->
     
+    <!-- BEGIN PRODUCT PAGES -->
     <definition name="product_add" extends="user-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/product/add.jsp" />
     </definition>
@@ -47,7 +48,18 @@
     <definition name="product_list" extends="user-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/product/list.jsp" />
     </definition>
+    <!-- END PRODUCT PAGES -->
     
-    
+    <!-- BEGIN CATEGORY PAGES -->
+    <definition name="category_add" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/category/add.jsp" />
+    </definition>
+    <definition name="category_edit" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/category/edit.jsp" />
+    </definition>
+    <definition name="category_list" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/category/list.jsp" />
+    </definition>
+    <!-- END PRODUCT PAGES -->
     
 </tiles-definitions>

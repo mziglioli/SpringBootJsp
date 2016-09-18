@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.test.model.EntityJpaClass;
 
@@ -16,10 +17,15 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 	@Getter
 	protected R repository;
 
-	public void save(ModelAndView model, T entity) {
+	public void save(ModelAndView model, T entity, RedirectAttributes redir) {
 		try {
-			save(entity);
-			model.addObject("success", "saved succesfully");
+			if (entity.getId() == null) {
+				beforeInsert(model, entity, redir);
+				repository.save(entity);
+				redir.addFlashAttribute("success", "label.successfully.created");
+				model.addObject("success", "label.successfully.created");
+				afterInsert(model, entity, redir);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addObject("error", e.getMessage());
@@ -38,10 +44,13 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 		}
 	}
 
-	public void update(ModelAndView model, T entity) {
+	public void update(ModelAndView model, T entity, RedirectAttributes redir) {
 		try {
-			update(entity);
-			model.addObject("success", "updated successfully");
+			beforeUpdate(model, entity, redir);
+			repository.save(entity);
+			model.addObject("success", "label.successfully.updated");
+			redir.addFlashAttribute("success", "label.successfully.updated");
+			afterUpdate(model, entity, redir);
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addObject("error", e.getMessage());
@@ -68,14 +77,20 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 		}
 	}
 
-	public void delete(ModelAndView model, T entity) {
+	public boolean delete(ModelAndView model, T entity, RedirectAttributes redir) {
 		try {
-			delete(entity);
-			model.addObject("success", "deleted successfully");
+			if (beforeDelete(model, entity, redir)) {
+				repository.delete(entity);
+				redir.addFlashAttribute("success", "label.successfully.deleted");
+				model.addObject("success", "label.successfully.deleted");
+				afterDelete(model, entity, redir);
+				return true;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			model.addObject("error", e.getMessage());
 		}
+		return false;
 	}
 
 	public void delete(Long id) {
@@ -83,9 +98,9 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 		delete(entity);
 	}
 
-	public void delete(ModelAndView model, Long id) {
+	public boolean delete(ModelAndView model, Long id, RedirectAttributes redir) {
 		T entity = repository.findOne(id);
-		delete(model, entity);
+		return delete(model, entity, redir);
 	}
 
 	public Collection<T> findAll() {
@@ -100,20 +115,40 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 
 	}
 
+	protected void afterInsert(ModelAndView model, T entity, RedirectAttributes redir) {
+
+	}
+
 	protected void afterUpdate(T entity) {
+	}
+
+	protected void afterUpdate(ModelAndView model, T entity, RedirectAttributes redir) {
 	}
 
 	protected void afterDelete(T entity) {
 	}
 
+	protected void afterDelete(ModelAndView model, T entity, RedirectAttributes redir) {
+	}
+
 	protected void beforeInsert(T entity) {
+	}
+
+	protected void beforeInsert(ModelAndView model, T entity, RedirectAttributes redir) {
 	}
 
 	protected void beforeUpdate(T entity) {
 	}
 
-	protected void beforeDelete(T entity) {
+	protected void beforeUpdate(ModelAndView model, T entity, RedirectAttributes redir) {
+	}
 
+	protected boolean beforeDelete(T entity) {
+		return true;
+	}
+
+	protected boolean beforeDelete(ModelAndView model, T entity, RedirectAttributes redir) {
+		return true;
 	}
 
 	protected boolean isUnique(T entity) {

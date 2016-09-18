@@ -15,6 +15,7 @@
 	<link href="<c:url value='/static/metro/css/docs.css' />" rel="stylesheet">
 	
 	<script src="<c:url value='/static/metro/js/jquery-2.1.3.min.js' />"></script>
+	<script src="<c:url value='/static/metro/js/select2.min.js' />"></script>
 	<script src="<c:url value='/static/metro/js/metro.js' />"></script>
     <script src="<c:url value='/static/metro/js/docs.js' />"></script>
     <script src="<c:url value='/static/metro/js/prettify/run_prettify.js' />"></script>

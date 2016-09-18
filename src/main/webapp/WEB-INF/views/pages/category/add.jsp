@@ -5,7 +5,7 @@
 <div class="cell auto-size padding20 bg-white" id="cell-content">
 	<div class="row">
 		<div class="cell colspan5">
-			<h2><spring:message code="label.new.product" /></h2>
+			<h2><spring:message code="label.new.category" /></h2>
 		</div>
 		<div class="cell colspan6">
 			<a style="color: red;" href="<c:url value='/${entityName}/' />"><spring:message code="label.back" /></a>
@@ -31,21 +31,8 @@
 		        	<div class="input-control text flex-dir-row full-size">
 						<input value="${entity.name}" type="text" id="form-${entityName}-name" class="form-control" name="name" placeholder="<spring:message code="label.name" />" required autofocus size="200" maxlength="200">
 					</div>
-					<div class="input-control full-size" data-role="select" data-template-result="fmtState" data-placeholder="<spring:message code="label.select.category" />">
-                        	<select class="full-size" name="category.id" id="form-${entityName}-category-select" >
-                        	<option></option>
-					    	<c:if test="${not empty categories}">
-								<c:forEach var="c" items="${categories}" varStatus="counter">
-									<option  value="${c.id}" >${c.name}</option>
-						        </c:forEach>
-							</c:if>
-					    </select>
-					</div>
-					<div class="input-control text full-size">
-						<input value="${entity.price}" type="number" id="form-${entityName}-price" class="form-control" name="price" placeholder="<spring:message code="label.price" />" required size="200" maxlength="200">
-					</div>
 				</div>
-			</div>
+	        </div>
 			<div class="form-actions">
 				<button class="button primary" type="submit" id="form-${entityName}-submit"><spring:message code="label.create" /></button>
 				<button class="button link fg-grayLight" type="reset" id="form-${entityName}-cancel"><spring:message code="label.cancel" /></button>

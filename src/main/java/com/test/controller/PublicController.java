@@ -90,7 +90,8 @@ public class PublicController {
 		userAuthorities.add(new UserAuthority(Authorities.USER.getRole()));
 
 		createMenuLink("label.menu.home", "/user/home", "mif-home icon", userAuthorities);
-		createMenuLink("label.menu.products", "/product/", "mif-users icon", userAuthorities);
+		createMenuLink("label.menu.categories", "/category/", "mif-location-city icon", userAuthorities);
+		createMenuLink("label.menu.products", "/product/", "mif-libray icon", userAuthorities);
 
 		User user = new User();
 		user.setName("test");
