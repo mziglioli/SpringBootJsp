@@ -2,7 +2,7 @@ package com.test.model;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -112,9 +112,9 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 		return authorities;
 	}
 
-	public List<String> getAuth() {
-		try (Stream<String> auths = authorities.stream().map(UserAuthority::getAuthority)) {
-			return auths.collect(Collectors.toList());
+	public Set<String> getAuth() {
+		try (Stream<String> auths = getUserAuth().stream().map(UserAuthority::getAuthority)) {
+			return auths.collect(Collectors.toSet());
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

@@ -1,7 +1,7 @@
 package com.test.model;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -12,7 +12,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
-import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import com.test.util.Catalago;
@@ -27,9 +26,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = false, of = { "id" })
+@EqualsAndHashCode(callSuper = false, of = { "id", "name", "link" })
 @Entity
-@Table(name = "menu", catalog = Catalago.DB_NAME, uniqueConstraints = { @UniqueConstraint(columnNames = { "name" }) })
+@Table(name = "menu", catalog = Catalago.DB_NAME)
 public class Menu implements EntityJpaClass, Serializable {
 
 	private static final long serialVersionUID = -1180260903735482908L;
@@ -52,6 +51,6 @@ public class Menu implements EntityJpaClass, Serializable {
 	private String link;
 
 	@ElementCollection(fetch = FetchType.EAGER)
-	private Collection<UserAuthority> authorities;
+	private Set<String> authorities;
 
 }

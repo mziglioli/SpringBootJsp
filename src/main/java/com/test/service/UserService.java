@@ -1,5 +1,8 @@
 package com.test.service;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,13 @@ public class UserService extends ServiceDefault<User, UserRepository> {
 	}
 
 	public User getUserFromUserLogado() {
-		return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context != null) {
+			Authentication auth = context.getAuthentication();
+			if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+				return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			}
+		}
+		return null;
 	}
 }

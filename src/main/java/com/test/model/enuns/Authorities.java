@@ -6,10 +6,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Authorities {
-	
+
+	//@formatter:off
 	USER("ROLE_USER")
-	,PROFISSIONAL("ROLE_PROFISSIONAL")
-	,ADMIN("ROLE_ADMIN");
-	
+	, MANAGER("ROLE_MANAGER")
+	, ADMIN("ROLE_ADMIN");
+	//@formatter:on
+
 	private String role;
 }

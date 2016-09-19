@@ -20,7 +20,7 @@ public class InterceptorMenu extends HandlerInterceptorAdapter {
 	public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler,
 			ModelAndView modelAndView) throws Exception {
 		if (modelAndView != null) {
-			modelAndView.addObject("menus", menuService.findAll());
+			modelAndView.addObject("menus", menuService.getMenuByUserLoged());
 		}
 	}
 }
