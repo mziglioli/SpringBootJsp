@@ -1,18 +1,19 @@
 package com.test.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.test.model.Product;
 import com.test.service.CategoryService;
 import com.test.service.ProductService;
 import com.test.util.Catalago;
+import com.test.util.Pages;
 
-@RestController
+@Controller
 @RequestMapping(value = Catalago.URL_PRODUCT)
 public class ProductController extends ControllerDefault<Product, ProductService> {
 
@@ -20,7 +21,7 @@ public class ProductController extends ControllerDefault<Product, ProductService
 	private CategoryService categoryService;
 
 	public ProductController() {
-		super("product");
+		super(Pages.PRODUCT);
 	}
 
 	@Override

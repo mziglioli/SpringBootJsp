@@ -1,5 +1,9 @@
 package com.test.model.enuns;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,4 +18,8 @@ public enum Authorities {
 	//@formatter:on
 
 	private String role;
+
+	public static List<String> getAuthorities() {
+		return Stream.of(Authorities.values()).map(Authorities::getRole).collect(Collectors.toList());
+	}
 }

@@ -8,7 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -28,7 +30,7 @@ import com.test.util.Catalago;
 import com.test.util.Pages;
 
 @Controller
-@RequestMapping(value = "/public")
+@RequestMapping(value = Catalago.URL_PUBLIC)
 public class PublicController {
 
 	@Autowired
@@ -39,7 +41,11 @@ public class PublicController {
 	@GetMapping(value = Catalago.URL_BASE)
 	public ModelAndView index() {
 		ModelAndView model = new ModelAndView();
-		model.setViewName(Pages.INDEX);
+		if (isAuth()) {
+			model.setViewName(Pages.INDEX);
+		} else {
+			model.setViewName(Pages.PUBLIC_INDEX);
+		}
 		return model;
 	}
 
@@ -50,6 +56,17 @@ public class PublicController {
 		return model;
 	}
 
+	private boolean isAuth() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context != null) {
+			Authentication auth = context.getAuthentication();
+			if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	@GetMapping(value = Catalago.URL_LOGOUT)
 	public ModelAndView logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -57,7 +74,7 @@ public class PublicController {
 			new SecurityContextLogoutHandler().logout(request, response, auth);
 		}
 		ModelAndView model = new ModelAndView();
-		model.setViewName(Pages.INDEX);
+		model.setViewName(Pages.PUBLIC_INDEX);
 		return model;
 	}
 
@@ -111,7 +128,7 @@ public class PublicController {
 		Set<String> adminAuthorities = new HashSet<>();
 		adminAuthorities.add(Authorities.ADMIN.getRole());
 
-		createMenuLink("label.menu.home", "/user/home", "mif-home icon", userAuthorities);
+		createMenuLink("label.menu.home", "/home", "mif-home icon", userAuthorities);
 		createMenuLink("label.menu.categories", "/category/", "mif-location-city icon", userAuthorities);
 		createMenuLink("label.menu.products", "/product/", "mif-libray icon", userAuthorities);
 		createMenuLink("label.menu.users", "/user/", "mif-user icon", adminAuthorities);

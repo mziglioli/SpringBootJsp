@@ -19,7 +19,7 @@
 					</sec:authorize>
                	</a>
                	<ul class="d-menu" data-role="dropdown">
-                   	<li><a href="<c:url value='/user/profile' />"><spring:message code="label.profile" /></a></li>
+                   	<li><a href="<c:url value='/profile' />"><spring:message code="label.profile" /></a></li>
                    	<li class="divider"></li>
                    	<li><a href="<c:url value='/public/logout' />"><spring:message code="label.logout" /></a></li>
                	</ul>

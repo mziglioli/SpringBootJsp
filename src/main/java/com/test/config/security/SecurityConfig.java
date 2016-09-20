@@ -1,16 +1,20 @@
 package com.test.config.security;
 
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.test.config.security.service.UserDetailsService;
 import com.test.config.security.voter.UserRoleVoter;
@@ -21,6 +25,8 @@ import com.test.util.Catalago;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
 @ComponentScan(basePackageClasses = { ControllerDefault.class, ServicePackage.class, ServletConfiguration.class })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -38,10 +44,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.anyRequest().authenticated()
 				.and().formLogin().permitAll()
 			.loginPage(Catalago.URL_PUBLIC_LOGIN)
-				.defaultSuccessUrl(Catalago.URL_USER_HOME)
+				.defaultSuccessUrl(Catalago.URL_HOME)
 				.usernameParameter(Catalago.LOGIN_PARAM_USERNAME)
 				.passwordParameter(Catalago.LOGIN_PARAM_PASSWORD)
 				.and().exceptionHandling().accessDeniedPage(Catalago.URL_PUBLIC_DENIED)
+			.and().logout()
+	            .logoutRequestMatcher(new AntPathRequestMatcher(Catalago.URL_PUBLIC_LOGOUT))
+	            .logoutSuccessUrl(Catalago.URL_PUBLIC_BASE)
+	            .deleteCookies("JSESSIONID")
+	            .deleteCookies("remember-me")
+	            .invalidateHttpSession(true).permitAll()
+	        .and()
+	            .rememberMe();;	
 		;
 		//@formatter:on
 	}

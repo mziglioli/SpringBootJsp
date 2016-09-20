@@ -21,45 +21,69 @@
     <definition name="login" extends="public-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/public/login.jsp" />
     </definition>
-    <definition name="denied" extends="public-definition">
+    <definition name="public_denied" extends="public-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/public/denied.jsp" />
     </definition>
-    <definition name="error" extends="public-definition">
+    <definition name="public_error" extends="public-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/public/error.jsp" />
+    </definition>
+    <definition name="public_index" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/index.jsp" />
     </definition>
     <!-- END PUBLIC PAGES -->
     
-    <!-- BEGIN USER PAGES -->
+    <!-- BEGIN AUTH PAGES -->
+    <definition name="index" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/index.jsp" />
+    </definition>
+    <definition name="denied" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/denied.jsp" />
+    </definition>
+    <definition name="error" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/error.jsp" />
+    </definition>
     <definition name="home" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/user/home.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/home.jsp" />
     </definition>  
     <definition name="profile" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/user/profile.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/profile.jsp" />
     </definition>  
-    <!-- END USER PAGES -->
+    <!-- END AUTH PAGES -->
     
     <!-- BEGIN PRODUCT PAGES -->
     <definition name="product_add" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/product/add.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/product/add.jsp" />
     </definition>
     <definition name="product_edit" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/product/edit.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/product/edit.jsp" />
     </definition>
     <definition name="product_list" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/product/list.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/product/list.jsp" />
     </definition>
     <!-- END PRODUCT PAGES -->
     
     <!-- BEGIN CATEGORY PAGES -->
     <definition name="category_add" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/category/add.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/category/add.jsp" />
     </definition>
     <definition name="category_edit" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/category/edit.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/category/edit.jsp" />
     </definition>
     <definition name="category_list" extends="user-definition">
-    	<put-attribute name="body" value="/WEB-INF/views/pages/category/list.jsp" />
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/category/list.jsp" />
     </definition>
-    <!-- END PRODUCT PAGES -->
+    <!-- END CATEGORY PAGES -->
+    
+    <!-- BEGIN ADMINUSER PAGES -->
+    <definition name="user_add" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/user/add.jsp" />
+    </definition>
+    <definition name="user_edit" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/user/edit.jsp" />
+    </definition>
+    <definition name="user_list" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/auth/user/list.jsp" />
+    </definition>
+    <!-- END ADMINUSER PAGES -->
     
 </tiles-definitions>

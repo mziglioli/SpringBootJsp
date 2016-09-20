@@ -6,9 +6,7 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum Status {
-	ATIVO("Ativo")
-	,DESATIVO("Destivo")
-	,DELETAR("Deletar");
+	ATIVO("Ativo"), DESATIVO("Desativo"), DELETAR("Deletar");
 
 	private String descricao;
 }

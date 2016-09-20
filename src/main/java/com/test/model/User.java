@@ -13,8 +13,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.TableGenerator;
 import javax.persistence.UniqueConstraint;
@@ -24,6 +22,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.test.model.enuns.Authorities;
 import com.test.model.enuns.Status;
 import com.test.util.Catalago;
 
@@ -71,10 +70,6 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 	@ElementCollection(fetch = FetchType.EAGER)
 	private Collection<UserAuthority> authorities;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "menu")
-	private Menu menu;
-
 	@JsonIgnore
 	@Override
 	public boolean isAccountNonExpired() {
@@ -121,4 +116,30 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 		}
 	}
 
+	public boolean isUser() {
+		try (Stream<String> auths = getUserAuth().stream().map(UserAuthority::getAuthority)) {
+			return auths.filter(a -> a.equals(Authorities.USER.getRole())).findAny().isPresent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean isManager() {
+		try (Stream<String> auths = getUserAuth().stream().map(UserAuthority::getAuthority)) {
+			return auths.filter(a -> a.equals(Authorities.MANAGER.getRole())).findAny().isPresent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+
+	public boolean isAdmin() {
+		try (Stream<String> auths = getUserAuth().stream().map(UserAuthority::getAuthority)) {
+			return auths.filter(a -> a.equals(Authorities.ADMIN.getRole())).findAny().isPresent();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
 }
