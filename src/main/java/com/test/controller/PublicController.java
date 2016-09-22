@@ -56,17 +56,6 @@ public class PublicController {
 		return model;
 	}
 
-	private boolean isAuth() {
-		SecurityContext context = SecurityContextHolder.getContext();
-		if (context != null) {
-			Authentication auth = context.getAuthentication();
-			if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	@GetMapping(value = Catalago.URL_LOGOUT)
 	public ModelAndView logoutPage(HttpServletRequest request, HttpServletResponse response) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -85,18 +74,48 @@ public class PublicController {
 		return model;
 	}
 
+	@GetMapping(value = Catalago.URL_BAD_REQUEST)
+	public ModelAndView badRequest() {
+		ModelAndView model = new ModelAndView();
+		if (isAuth()) {
+			model.setViewName(Pages.ERROR);
+		} else {
+			model.setViewName(Pages.PUBLIC_ERROR);
+		}
+		return model;
+	}
+
 	@GetMapping(value = Catalago.URL_ERROR)
 	public ModelAndView error() {
 		ModelAndView model = new ModelAndView();
-		model.setViewName(Pages.ERROR);
+		if (isAuth()) {
+			model.setViewName(Pages.ERROR);
+		} else {
+			model.setViewName(Pages.PUBLIC_ERROR);
+		}
 		return model;
 	}
 
 	@GetMapping(value = Catalago.URL_NOT_FOUND)
 	public ModelAndView notFound() {
 		ModelAndView model = new ModelAndView();
-		model.setViewName(Pages.DENIED);
+		if (isAuth()) {
+			model.setViewName(Pages.NOT_FOUND);
+		} else {
+			model.setViewName(Pages.PUBLIC_NOT_FOUND);
+		}
 		return model;
+	}
+
+	private boolean isAuth() {
+		SecurityContext context = SecurityContextHolder.getContext();
+		if (context != null) {
+			Authentication auth = context.getAuthentication();
+			if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// FIXME

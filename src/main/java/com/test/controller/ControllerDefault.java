@@ -37,7 +37,7 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 
 	@PostMapping(value = Catalago.URL_SAVE)
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public final ModelAndView save(ModelAndView model, @Valid E entity, BindingResult bindingResult,
+	public ModelAndView save(ModelAndView model, @Valid E entity, BindingResult bindingResult,
 			RedirectAttributes redir) {
 		if (validate(model, bindingResult, entity)) {
 			service.save(model, entity, redir);

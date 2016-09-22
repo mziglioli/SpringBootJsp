@@ -39,9 +39,13 @@ public class Catalago {
 	public static final String URL_LOGIN = "/login";
 	public static final String URL_LOGOUT = "/logout";
 	public static final String URL_PUBLIC_DENIED = "/public/denied";
+	public static final String URL_PUBLIC_ERROR = "/public/error";
+	public static final String URL_PUBLIC_BAD_REQUEST = "/public/badRequest";
+	public static final String URL_PUBLIC_NOT_FOUND = "/public/notFound";
 	public static final String URL_DENIED = "/denied";
 	public static final String URL_ERROR = "/error";
 	public static final String URL_NOT_FOUND = "/notFound";
+	public static final String URL_BAD_REQUEST = "/badRequest";
 
 	public static final String URL_EDIT = "/{id}";
 	public static final String URL_NEW = "/new";

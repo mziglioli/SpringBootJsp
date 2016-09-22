@@ -5,7 +5,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -17,17 +16,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.test.config.security.service.UserDetailsService;
-import com.test.config.security.voter.UserRoleVoter;
 import com.test.config.servlet.ServletConfiguration;
 import com.test.controller.ControllerDefault;
-import com.test.service.ServicePackage;
+import com.test.service.ServiceDefault;
 import com.test.util.Catalago;
 
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-@ComponentScan(basePackageClasses = { ControllerDefault.class, ServicePackage.class, ServletConfiguration.class })
+@ComponentScan(basePackageClasses = { ControllerDefault.class, ServiceDefault.class, ServletConfiguration.class })
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
@@ -74,10 +72,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	public UserDetailsService userDetailsService() {
 		return new UserDetailsService();
-	}
-
-	@Bean
-	public RoleVoter roleVoter() {
-		return new UserRoleVoter();
 	}
 }

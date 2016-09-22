@@ -27,7 +27,7 @@ import com.test.util.Catalago;
 
 @Configuration
 @EnableWebMvc
-public class ServletConfiguration extends WebMvcConfigurerAdapter {
+public class ServletConfiguration extends WebMvcConfigurerAdapter implements EmbeddedServletContainerCustomizer {
 
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
@@ -93,15 +93,10 @@ public class ServletConfiguration extends WebMvcConfigurerAdapter {
 		return messageSource;
 	}
 
-	@Bean
-	public EmbeddedServletContainerCustomizer containerCustomizer() {
-		return new EmbeddedServletContainerCustomizer() {
-			@Override
-			public void customize(ConfigurableEmbeddedServletContainer container) {
-				container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, Catalago.URL_NOT_FOUND));
-				container.addErrorPages(new ErrorPage(HttpStatus.FORBIDDEN, Catalago.URL_DENIED));
-				container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, Catalago.URL_ERROR));
-			}
-		};
+	@Override
+	public void customize(ConfigurableEmbeddedServletContainer container) {
+		container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, Catalago.URL_PUBLIC_NOT_FOUND));
+		container.addErrorPages(new ErrorPage(HttpStatus.INTERNAL_SERVER_ERROR, Catalago.URL_PUBLIC_ERROR));
+		container.addErrorPages(new ErrorPage(HttpStatus.BAD_REQUEST, Catalago.URL_PUBLIC_ERROR));
 	}
 }

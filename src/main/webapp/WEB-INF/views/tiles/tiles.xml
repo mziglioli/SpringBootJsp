@@ -30,6 +30,12 @@
     <definition name="public_index" extends="public-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/public/index.jsp" />
     </definition>
+    <definition name="public_not_found" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/notFound.jsp" />
+    </definition>
+    <definition name="public_bad_request" extends="public-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/badRequest.jsp" />
+    </definition>
     <!-- END PUBLIC PAGES -->
     
     <!-- BEGIN AUTH PAGES -->
@@ -42,6 +48,12 @@
     <definition name="error" extends="user-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/public/error.jsp" />
     </definition>
+    <definition name="not_found" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/notFound.jsp" />
+    </definition>  
+    <definition name="bad_request" extends="user-definition">
+    	<put-attribute name="body" value="/WEB-INF/views/pages/public/badRequest.jsp" />
+    </definition>  
     <definition name="home" extends="user-definition">
     	<put-attribute name="body" value="/WEB-INF/views/pages/auth/home.jsp" />
     </definition>  
