@@ -67,7 +67,7 @@ function deleteDialog(){
 			                </span>	
 		                </button>
 	                </form>
-	                <a class="button danger" onclick="deleteDialog()">
+	                <a class="button danger" onclick="deleteDialog('${p.id}')">
 	                	<span class="mif-cancel prepend-icon"></span>
 	                	<span><spring:message code="label.no" /></span>
 	                </a>
