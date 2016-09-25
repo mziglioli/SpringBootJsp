@@ -18,8 +18,9 @@
 	<script src="<c:url value='/static/metro/js/select2.min.js' />"></script>
 	<script src="<c:url value='/static/metro/js/metro.js' />"></script>
     <script src="<c:url value='/static/metro/js/docs.js' />"></script>
-    <script src="<c:url value='/static/metro/js/prettify/run_prettify.js' />"></script>
     <script src="<c:url value='/static/metro/js/ga.js' />"></script>
+	<script src="<c:url value='/static/metro/js/jquery.dataTables.min.js' />"></script>
+	<script src="<c:url value='/static/metro/js/page.js' />"></script>
 </head>
 	<body style="height: 100%; padding-bottom:120px;">
 	<tiles:insertAttribute name="header" />

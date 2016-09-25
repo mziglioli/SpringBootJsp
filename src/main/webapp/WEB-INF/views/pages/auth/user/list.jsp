@@ -1,16 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<script>
-function deleteDialog(id){
-    var dialog = $("#deleteDialog_"+id).data('dialog');
-    if (!dialog.element.data('opened')) {
-        dialog.open();
-    } else {
-        dialog.close();
-    }
-}
-</script>
+<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <div class="cell auto-size padding20 bg-white" id="cell-content">
 	<c:if test="${not empty success}">
 		<div class="row no-margin padding5">
@@ -37,42 +29,6 @@ function deleteDialog(id){
 		</c:forEach>
 	</c:if>
 	<h2><spring:message code="label.list.user" /></h2> <a href="<c:url value='/${entityName}/new' />"><spring:message code="label.create.user" /></a>
-	<table class="table striped hovered cell-hovered border bordered">
-		<tr>
-			<th class="sortable-column"><spring:message code="label.id" /></th>
-			<th class="sortable-column"><spring:message code="label.name" /></th>
-			<th class="sortable-column"><spring:message code="label.status" /></th>
-			<th><spring:message code="label.authorities" /></th>
-			<th><spring:message code="label.edit" /></th>
-			<th><spring:message code="label.delete" /></th>
-		</tr>
-		<c:forEach var="e" items="${entityList}" varStatus="counter">
-			<tr>
-				<td>${e.id}</td>
-				<td>${e.name}</td>
-				<td>${e.status}</td>
-				<td>${e.getAuth()}</td>
-				<td><a href="<c:url value="/${entityName}/${e.id}"/>"><span class="mif-pencil prepend-icon"></span> </a></td>
-				<td><a href="javascript:deleteDialog('${e.id}')"><span class="mif-bin prepend-icon"></span> </a></td>
-			</tr>
-			<div data-role="dialog" id="deleteDialog_${e.id}" class="padding20" data-close-button="true" data-windows-style="true">
-            	<div class="container">
-                	<h1><spring:message code="label.delete.msg" arguments="${e.name}"/></h1>
-                	<form action="<c:url value='${deleteURL}${e.id}'/>" method="post" class="form-horizontal" >
-                		<input hidden="true" value="${e.id}" type="text" id="form-${entityName}-id" name="id">
-	   					<button class="button primary" type="submit">
-		                	<span class="mif-checkmark prepend-icon"></span>
-		                	<span>
-			                	<spring:message code="label.yes" />
-			                </span>	
-		                </button>
-	                </form>
-	                <a class="button danger" onclick="deleteDialog()">
-	                	<span class="mif-cancel prepend-icon"></span>
-	                	<span><spring:message code="label.no" /></span>
-	                </a>
-            	</div>
-        	</div>
-		</c:forEach>
-	</table>
+	<c:set var="entityFields" value="${['id','name','username','status','authorities']}" scope="request" />
+	<tiles:insertAttribute name="table" />
 </div>

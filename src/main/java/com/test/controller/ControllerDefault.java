@@ -115,7 +115,7 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 
 	@GetMapping(value = Catalago.URL_BASE)
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ModelAndView findAll(ModelAndView model) {
+	public ModelAndView findByPageable(ModelAndView model) {
 		buildModelList(model);
 		return model;
 	}

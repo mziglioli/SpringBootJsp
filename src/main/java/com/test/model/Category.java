@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.test.util.Catalago;
 
 import lombok.AllArgsConstructor;
@@ -50,8 +50,17 @@ public class Category implements EntityJpaClass, Serializable {
 	@NotEmpty(message = "error.empty.name")
 	private String name;
 
-	@JsonIgnore
+	@JsonBackReference
 	@OneToMany(mappedBy = "category", fetch = FetchType.LAZY)
 	private List<Product> products;
 
+	public String getValueByPropertyName(String propertyName) {
+		if (propertyName.equals("id")) {
+			return id.toString();
+		}
+		if (propertyName.equals("name")) {
+			return name;
+		}
+		return "";
+	}
 }

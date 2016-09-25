@@ -142,4 +142,26 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 			return false;
 		}
 	}
+
+	/**
+	 * used on table.jsp way to table be generic
+	 */
+	public String getValueByPropertyName(String propertyName) {
+		if (propertyName.equals("id")) {
+			return id.toString();
+		}
+		if (propertyName.equals("name")) {
+			return name;
+		}
+		if (propertyName.equals("username")) {
+			return username;
+		}
+		if (propertyName.equals("status")) {
+			return status;
+		}
+		if (propertyName.equals("authorities")) {
+			return getAuth().toString();
+		}
+		return "";
+	}
 }

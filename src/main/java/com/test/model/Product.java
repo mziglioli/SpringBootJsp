@@ -17,6 +17,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.test.util.Catalago;
 
 import lombok.AllArgsConstructor;
@@ -52,10 +53,26 @@ public class Product implements EntityJpaClass, Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category", nullable = false)
 	@NotNull(message = "error.empty.category")
+	@JsonManagedReference
 	private Category category;
 
 	@Column
 	@NotNull(message = "error.empty.price")
 	private Double price;
 
+	public String getValueByPropertyName(String propertyName) {
+		if (propertyName.equals("id")) {
+			return id.toString();
+		}
+		if (propertyName.equals("name")) {
+			return name;
+		}
+		if (propertyName.equals("category")) {
+			return category.getName();
+		}
+		if (propertyName.equals("price")) {
+			return price.toString();
+		}
+		return "";
+	}
 }
