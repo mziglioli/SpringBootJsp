@@ -52,16 +52,15 @@ public class User implements EntityJpaClass, Serializable, UserDetails {
 	private Long id;
 
 	@Column
-	@NotNull
+	@NotNull(message = "error.empty.name")
 	private String name;
 
 	@Column
-	@NotNull
+	@NotNull(message = "error.empty.username")
 	private String username;
 
 	@JsonIgnore
 	@Column
-	@NotNull
 	private String password;
 
 	@Column

@@ -26,11 +26,11 @@
 			     	</c:if>
 					<div class="input-control text">
 						<span class="mif-user prepend-icon"></span> 
-						<input type="email" id="username" class="form-control" name="username" placeholder="<spring:message code="label.username" />" required autofocus>
+						<input type="email" id="username" class="form-control" value="admin@admin.com"  name="username" placeholder="<spring:message code="label.username" />" required autofocus>
 					</div>
 					<div class="input-control text">
 						<span class="mif-lock prepend-icon"></span> 
-						<input type="password" id="inputPassword" class="form-control" name="password" placeholder="<spring:message code="label.password" />" required>
+						<input type="password" id="inputPassword" class="form-control" name="password" value="admin" placeholder="<spring:message code="label.password" />" required>
     						<input type="hidden" name="${_csrf.parameterName}"   value="${_csrf.token}" />
 					</div>
 					<div class="form-actions">

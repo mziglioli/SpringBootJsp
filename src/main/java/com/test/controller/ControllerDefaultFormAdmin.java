@@ -1,19 +1,13 @@
 package com.test.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.test.model.EntityJpaClass;
 import com.test.service.ServiceDefault;
 import com.test.util.Catalago;
 import com.test.util.Pages;
@@ -21,7 +15,7 @@ import com.test.util.Pages;
 import lombok.Getter;
 
 @SuppressWarnings({ "rawtypes" })
-public abstract class ControllerDefaultAdmin<E extends EntityJpaClass, T extends ServiceDefault> {
+public abstract class ControllerDefaultFormAdmin<T extends ServiceDefault> {
 
 	@Autowired
 	@Getter
@@ -29,19 +23,8 @@ public abstract class ControllerDefaultAdmin<E extends EntityJpaClass, T extends
 
 	private String entityURL = "";
 
-	public ControllerDefaultAdmin(String entityURL) {
+	public ControllerDefaultFormAdmin(String entityURL) {
 		this.entityURL = entityURL;
-	}
-
-	protected void myValidate(ModelAndView model, BindingResult bindingResult, E entity) {
-
-	}
-
-	protected void addError(ModelAndView model, BindingResult bindingResult) {
-		List<ObjectError> errors = bindingResult.getAllErrors();
-		if (errors != null && !errors.isEmpty()) {
-			model.addObject("errors", errors.stream().collect(Collectors.toList()));
-		}
 	}
 
 	protected void addExtraModel(ModelAndView model) {
@@ -103,5 +86,6 @@ public abstract class ControllerDefaultAdmin<E extends EntityJpaClass, T extends
 		model.addObject("entityName", entityURL);
 		model.addObject("deleteURL", "/" + entityURL + "/delete/");
 		model.setViewName(entityURL + Pages.LIST);
+		addExtraModel(model);
 	}
 }

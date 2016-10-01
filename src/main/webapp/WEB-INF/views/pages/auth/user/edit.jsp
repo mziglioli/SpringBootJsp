@@ -39,42 +39,31 @@
 						<span class="mif-mail prepend-icon"></span> 
 						<input value="${form.username}" id="form-${entityName}-username" type="email" class="form-control" name="username" placeholder="<spring:message code="label.username" />" required maxlength="255">
 					</div>
-					<div class="input-control full-size" data-role="select" data-multiple="true" data-placeholder="Select a state">
+					<div class="cell padding10">
 						<span style="font-weight: bold;"><spring:message code="label.authorities" />: </span>
                         <label class="switch-original"><spring:message code="label.user" />
                         	<input type="checkbox" name="user" id="form-${entityName}-auth-user" 
-                        		<c:if test="${form.user eq true}">checked="checked"</c:if>>
+                        		<c:if test="${form.isUser() eq true}">checked="checked"</c:if>>
 	                        <span class="check"></span>
                         </label>
                         <label class="switch-original"><spring:message code="label.manager" />
                         	<input type="checkbox" name="manager" id="form-${entityName}-auth-manager" 
-                        		<c:if test="${form.manager eq true}">checked="checked"</c:if>>
+                        		<c:if test="${form.isManager() eq true}">checked="checked"</c:if>>
 	                        <span class="check"></span>
                         </label>
                         <label class="switch-original"><spring:message code="label.admin" />
                         	<input type="checkbox" name="admin" id="form-${entityName}-auth-admin" 
-                        		<c:if test="${form.admin eq true}">checked="checked"</c:if>>
+                        		<c:if test="${form.isAdmin() eq true}">checked="checked"</c:if>>
 	                        <span class="check"></span>
                         </label>
                     </div>
-                    <div class="cell">
-                        <span style="font-weight: bold;"><spring:message code="label.status" />: </span>
-                        <label class="input-control radio small-check">
-                            <input type="radio" name="status"  id="form-${entityName}-status-active"
-	                            <c:if test="${form.status eq 'Ativo'}">checked</c:if>>
-                            <span class="check"></span>
-                            <span class="caption"><spring:message code="label.active" /></span>
-                        </label>    
-                        <label class="input-control radio small-check">
-                            <input type="radio" name="status" id="form-${entityName}-status-inactive"
-	                            <c:if test="${form.status eq 'Desativo'}">checked</c:if>>
-                            <span class="check"></span>
-                            <span class="caption"><spring:message code="label.inactive" /></span>
+                    <div class="cell padding10">
+                        <label style="font-weight: bold;" class="switch-original"><spring:message code="label.active" />:
+                           <input type="checkbox" name="state" id="form-${entityName}-auth-admin" 
+                        		<c:if test="${form.status eq 'Ativo'}">checked="checked"</c:if>>
+	                        <span class="check"></span>
                         </label>
 					</div>
-					<script type="text/javascript">
-						//TODO
-					</script>
 				</div>	
 			 </div>
 			<div class="form-actions">

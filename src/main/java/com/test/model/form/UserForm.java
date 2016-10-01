@@ -18,16 +18,12 @@ public class UserForm implements Serializable {
 	private static final long serialVersionUID = -5812463348093830776L;
 	@NotNull
 	private Long id;
-	@NotNull
+	@NotNull(message = "error.empty.name")
 	private String name;
-	@NotNull
+	@NotNull(message = "error.empty.username")
 	private String username;
-	@NotNull
-	private String status;
-	@NotNull
+	private String state;
 	private boolean user;
-	@NotNull
 	private boolean manager;
-	@NotNull
 	private boolean admin;
 }

@@ -54,7 +54,7 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 	public ModelAndView update(ModelAndView model, @Valid E entity, BindingResult bindingResult,
 			RedirectAttributes redir) {
 		if (validate(model, bindingResult, entity)) {
-			service.update(model, entity, redir);
+			service.save(model, entity, redir);
 			return new ModelAndView("redirect:/" + entityURL + "/");
 		} else {
 			model.setViewName(entityURL + Pages.EDIT);

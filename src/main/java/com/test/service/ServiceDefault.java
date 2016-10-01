@@ -28,6 +28,8 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 				redir.addFlashAttribute("success", "label.successfully.created");
 				model.addObject("success", "label.successfully.created");
 				afterInsert(model, entity, redir);
+			} else {
+				update(model, entity, redir);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -41,13 +43,15 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 				beforeInsert(entity);
 				repository.save(entity);
 				afterInsert(entity);
+			} else {
+				update(entity);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void update(ModelAndView model, T entity, RedirectAttributes redir) {
+	private void update(ModelAndView model, T entity, RedirectAttributes redir) {
 		try {
 			beforeUpdate(model, entity, redir);
 			repository.save(entity);
@@ -60,7 +64,7 @@ public abstract class ServiceDefault<T extends EntityJpaClass, R extends JpaRepo
 		}
 	}
 
-	public void update(T entity) {
+	private void update(T entity) {
 		try {
 			beforeUpdate(entity);
 			repository.save(entity);

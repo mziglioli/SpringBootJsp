@@ -1,10 +1,15 @@
 package com.test.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,9 +22,15 @@ import com.test.service.UserService;
 import com.test.util.Catalago;
 import com.test.util.Pages;
 
+import lombok.Getter;
+
 @Controller
 @RequestMapping(value = Catalago.URL_USER)
-public class UserController extends ControllerDefaultAdmin<User, UserService> {
+public class UserController extends ControllerDefaultFormAdmin<UserService> {
+
+	@Autowired
+	@Getter
+	protected UserService service;
 
 	private static final String entityURL = Pages.USER;
 
@@ -29,10 +40,12 @@ public class UserController extends ControllerDefaultAdmin<User, UserService> {
 
 	@PostMapping(value = Catalago.URL_SAVE)
 	@PreAuthorize("hasRole('ADMIN')")
-	public final ModelAndView save(ModelAndView model, @Valid UserForm entity, BindingResult bindingResult,
+	public final ModelAndView save(ModelAndView model, @Valid UserForm form, BindingResult bindingResult,
 			RedirectAttributes redir) {
-		if (validate(model, bindingResult, entity)) {
-			// service.save(model, entity, redir);
+		if (validate(model, bindingResult, form)) {
+			User user = service.convertUserFormToUser(form);
+			user.setId(null);
+			service.save(model, user, redir);
 			return new ModelAndView("redirect:/" + entityURL + "/");
 		} else {
 			model.setViewName(entityURL + Pages.ADD);
@@ -43,10 +56,10 @@ public class UserController extends ControllerDefaultAdmin<User, UserService> {
 
 	@PostMapping(value = Catalago.URL_UPDATE)
 	@PreAuthorize("hasRole('ADMIN')")
-	public ModelAndView update(ModelAndView model, @Valid UserForm entity, BindingResult bindingResult,
+	public ModelAndView update(ModelAndView model, @Valid UserForm form, BindingResult bindingResult,
 			RedirectAttributes redir) {
-		if (validate(model, bindingResult, entity)) {
-			// service.update(model, entity, redir);
+		if (validate(model, bindingResult, form)) {
+			service.save(model, service.convertUserFormToUser(form), redir);
 			return new ModelAndView("redirect:/" + entityURL + "/");
 		} else {
 			model.setViewName(entityURL + Pages.EDIT);
@@ -68,8 +81,13 @@ public class UserController extends ControllerDefaultAdmin<User, UserService> {
 	@Override
 	protected void addExtraModel(ModelAndView model, Long id) {
 		model.addObject("roles", Authorities.getAuthorities());
-		UserForm form = service.convertUserToUserForm(id);
-		model.addObject("form", form);
+		model.addObject("form", service.findById(id));
 	}
 
+	private void addError(ModelAndView model, BindingResult bindingResult) {
+		List<ObjectError> errors = bindingResult.getAllErrors();
+		if (errors != null && !errors.isEmpty()) {
+			model.addObject("errors", errors.stream().collect(Collectors.toList()));
+		}
+	}
 }
