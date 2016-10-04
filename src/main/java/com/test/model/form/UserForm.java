@@ -16,7 +16,6 @@ import lombok.Setter;
 public class UserForm implements Serializable {
 
 	private static final long serialVersionUID = -5812463348093830776L;
-	@NotNull
 	private Long id;
 	@NotNull(message = "error.empty.name")
 	private String name;

@@ -67,6 +67,10 @@ public class UserService extends ServiceDefault<User, UserRepository> {
 		return authorities;
 	}
 
+	public void save(ModelAndView model, UserForm form, RedirectAttributes redir) {
+		save(model, convertUserFormToUser(form), redir);
+	}
+
 	@Override
 	protected void beforeInsert(ModelAndView model, User entity, RedirectAttributes redir) {
 		super.beforeInsert(model, entity, redir);
@@ -81,5 +85,11 @@ public class UserService extends ServiceDefault<User, UserRepository> {
 		// avoid change password
 		User userDB = getRepository().findOne(entity.getId());
 		entity.setPassword(userDB.getPassword());
+	}
+
+	@Override
+	protected void afterInsert(ModelAndView model, User entity, RedirectAttributes redir) {
+		super.afterInsert(model, entity, redir);
+		model = new ModelAndView("redirect:/" + entity.getClass().getName().toLowerCase() + "/");
 	}
 }

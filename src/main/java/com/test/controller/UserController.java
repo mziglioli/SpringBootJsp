@@ -40,18 +40,19 @@ public class UserController extends ControllerDefaultFormAdmin<UserService> {
 
 	@PostMapping(value = Catalago.URL_SAVE)
 	@PreAuthorize("hasRole('ADMIN')")
-	public final ModelAndView save(ModelAndView model, @Valid UserForm form, BindingResult bindingResult,
+	public ModelAndView save(ModelAndView model, @Valid UserForm form, BindingResult bindingResult,
 			RedirectAttributes redir) {
 		if (validate(model, bindingResult, form)) {
 			User user = service.convertUserFormToUser(form);
 			user.setId(null);
 			service.save(model, user, redir);
-			return new ModelAndView("redirect:/" + entityURL + "/");
-		} else {
-			model.setViewName(entityURL + Pages.ADD);
-			model.addObject("saveURL", "/" + entityURL + Catalago.URL_SAVE);
-			return model;
+			// return new ModelAndView("redirect:/" + entityURL + "/");
+			// } else {
+			// model.setViewName(entityURL + Pages.ADD);
+			// model.addObject("saveURL", "/" + entityURL + Catalago.URL_SAVE);
+			// return model;
 		}
+		return model;
 	}
 
 	@PostMapping(value = Catalago.URL_UPDATE)
@@ -59,13 +60,14 @@ public class UserController extends ControllerDefaultFormAdmin<UserService> {
 	public ModelAndView update(ModelAndView model, @Valid UserForm form, BindingResult bindingResult,
 			RedirectAttributes redir) {
 		if (validate(model, bindingResult, form)) {
-			service.save(model, service.convertUserFormToUser(form), redir);
-			return new ModelAndView("redirect:/" + entityURL + "/");
-		} else {
-			model.setViewName(entityURL + Pages.EDIT);
-			model.addObject("saveURL", "/" + entityURL + Catalago.URL_UPDATE);
-			return model;
+			service.save(model, form, redir);
+			// return new ModelAndView("redirect:/" + entityURL + "/");
+			// } else {
+			// model.setViewName(entityURL + Pages.EDIT);
+			// model.addObject("updateURL", "/" + entityURL + Catalago.URL_UPDATE);
+			// return model;
 		}
+		return model;
 	}
 
 	private boolean validate(ModelAndView model, BindingResult bindingResult, UserForm entity) {

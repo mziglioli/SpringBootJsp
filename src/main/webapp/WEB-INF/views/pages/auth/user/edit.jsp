@@ -19,14 +19,14 @@
 		        <div class="cell colspan6">
     	    		<div class="input-state-error mif-notification" style="color: red;">
         				<span style="padding-left: 10">
-							<spring:message code="${e.defaultMessage}" />
+							<spring:message arguments="${e.arguments}" code="${e.defaultMessage}" />
         				</span>
         			</div>
         		</div>
         	</div>
         </c:forEach>
 	</c:if>
-	<form action="<c:url value='${updateURL}' />" method="post" class="form-horizontal" name="${entityName}" >
+	<form action="<c:url value='${action}/update/${entity.id}' />" method="post" class="form-horizontal" name="${entityName}" >
 		<input hidden="true" value="${form.id}" type="text" id="form-${entityName}-id" name="id">
 	    <div class="flex-grid">
 	        <div class="row no-margin">

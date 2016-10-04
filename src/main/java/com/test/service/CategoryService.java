@@ -2,6 +2,7 @@ package com.test.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,4 +35,20 @@ public class CategoryService extends ServiceDefault<Category, CategoryRepository
 		return true;
 	}
 
+	@Override
+	protected void addUniqueError(ModelAndView model, Category entity) {
+		List<ObjectError> errors = new ArrayList<>();
+		Object[] args = new Object[] { "name" };
+		errors.add(new ObjectError("name", null, args, "error.duplicate.key"));
+		model.addObject("errors", errors.stream().collect(Collectors.toList()));
+	}
+
+	@Override
+	protected boolean isUnique(Category entity) {
+		Category category = repository.findByName(entity.getName());
+		if (category == null || category.getId() == entity.getId()) {
+			return true;
+		}
+		return false;
+	}
 }

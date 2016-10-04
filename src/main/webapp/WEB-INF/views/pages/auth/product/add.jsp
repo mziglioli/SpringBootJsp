@@ -18,14 +18,14 @@
 		        <div class="cell colspan6">
     	    		<div class="input-state-error mif-notification" style="color: red;">
         				<span style="padding-left: 10">
-							<spring:message code="${e.defaultMessage}" />
+							<spring:message arguments="${e.arguments}" code="${e.defaultMessage}" />
         				</span>
         			</div>
         		</div>
         	</div>
         </c:forEach>
 	</c:if>
-	<form action="<c:url value='${saveURL}' />" method="post" class="form-horizontal" name="${entityName}" >
+	<form action="<c:url value='${action}/' />" method="post" class="form-horizontal" name="${entityName}" >
 	    <div class="flex-grid">
 	    	<div class="row no-margin">
 		        <div class="cell colspan6">
@@ -37,7 +37,12 @@
                         	<option></option>
 					    	<c:if test="${not empty categories}">
 								<c:forEach var="c" items="${categories}" varStatus="counter">
-									<option  value="${c.id}" >${c.name}</option>
+									<c:if test="${c.id eq entity.category.id}">
+										<option value="${c.id}" selected="selected">${c.name}</option>
+									</c:if>
+									<c:if test="${c.id ne entity.category.id}">
+										<option  value="${c.id}" >${c.name}</option>
+									</c:if>
 						        </c:forEach>
 							</c:if>
 					    </select>

@@ -40,13 +40,13 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 	public ModelAndView save(ModelAndView model, @Valid E entity, BindingResult bindingResult,
 			RedirectAttributes redir) {
 		if (validate(model, bindingResult, entity)) {
-			service.save(model, entity, redir);
-			return new ModelAndView("redirect:/" + entityURL + "/");
-		} else {
-			model.setViewName(entityURL + Pages.ADD);
-			model.addObject("saveURL", "/" + entityURL + Catalago.URL_SAVE);
-			return model;
+			if (service.save(model, entity, redir)) {
+				return new ModelAndView("redirect:/" + entityURL + "/");
+			}
+			buildModelNew(model);
+			model.addObject("entity", entity);
 		}
+		return model;
 	}
 
 	@PostMapping(value = Catalago.URL_UPDATE)
@@ -54,13 +54,13 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 	public ModelAndView update(ModelAndView model, @Valid E entity, BindingResult bindingResult,
 			RedirectAttributes redir) {
 		if (validate(model, bindingResult, entity)) {
-			service.save(model, entity, redir);
-			return new ModelAndView("redirect:/" + entityURL + "/");
-		} else {
-			model.setViewName(entityURL + Pages.EDIT);
-			model.addObject("saveURL", "/" + entityURL + Catalago.URL_UPDATE);
-			return model;
+			if (service.save(model, entity, redir)) {
+				return new ModelAndView("redirect:/" + entityURL + "/");
+			}
+			buildModelEdit(model, entity.getId());
+			model.addObject("entity", entity);
 		}
+		return model;
 	}
 
 	private boolean validate(ModelAndView model, BindingResult bindingResult, E entity) {
@@ -115,13 +115,13 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 
 	@GetMapping(value = Catalago.URL_BASE)
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ModelAndView findByPageable(ModelAndView model) {
+	public ModelAndView findAll(ModelAndView model) {
 		buildModelList(model);
 		return model;
 	}
 
 	private void buildModelNew(ModelAndView model) {
-		model.addObject("saveURL", "/" + entityURL + Catalago.URL_SAVE);
+		model.addObject("action", "/" + entityURL);
 		model.addObject("entityName", entityURL);
 		model.setViewName(entityURL + Pages.ADD);
 		addExtraModel(model);
@@ -129,7 +129,7 @@ public abstract class ControllerDefault<E extends EntityJpaClass, T extends Serv
 
 	private void buildModelEdit(ModelAndView model, Long id) {
 		model.addObject("entity", service.findById(id));
-		model.addObject("updateURL", "/" + entityURL + "/update/" + id);
+		model.addObject("action", "/" + entityURL);
 		model.addObject("entityName", entityURL);
 		model.setViewName(entityURL + Pages.EDIT);
 		addExtraModel(model);

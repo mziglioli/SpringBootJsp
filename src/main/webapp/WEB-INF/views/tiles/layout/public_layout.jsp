@@ -6,7 +6,6 @@
 <!DOCTYPE html>
 <html>
 <head>
- 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title><spring:message code="label.project.name" /></title>
 	<link href="<c:url value='/static/metro/css/metro.css' />" rel="stylesheet">
 	<link href="<c:url value='/static/metro/css/metro-schemes.css' />" rel="stylesheet">

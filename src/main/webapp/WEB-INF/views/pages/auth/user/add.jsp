@@ -19,14 +19,14 @@
 		        <div class="cell colspan6">
     	    		<div class="input-state-error mif-notification" style="color: red;">
         				<span style="padding-left: 10">
-							<spring:message code="${e.defaultMessage}" />
+							<spring:message arguments="${e.arguments}" code="${e.defaultMessage}" />
         				</span>
         			</div>
         		</div>
         	</div>
         </c:forEach>
 	</c:if>
-	<form action="<c:url value='${saveURL}' />" method="post" class="form-horizontal" name="${entityName}" >
+	<form action="<c:url value='${action}/' />" method="post" class="form-horizontal" name="${entityName}" >
 	    <div class="flex-grid">
 	        <div class="row no-margin">
 		        <div class="cell colspan6">
@@ -59,7 +59,7 @@
                     <div class="cell padding10">
                         <label style="font-weight: bold;" class="switch-original"><spring:message code="label.active" />:
                            <input type="checkbox" name="state" id="form-${entityName}-auth-admin" 
-                        		<c:if test="${form.status eq 'Ativo'}">checked="checked"</c:if>>
+                        		<c:if test="${form.state eq 'Ativo'}">checked="checked"</c:if>>
 	                        <span class="check"></span>
                         </label>
 					</div>
